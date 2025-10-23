@@ -25,9 +25,6 @@ services:
       - api
     networks:
       - app-network
-    volumes:
-      - apps/web/node_modules
-      - apps/web/.next
 
 networks:
   app-network:
