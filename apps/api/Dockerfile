@@ -1,27 +1,36 @@
-# Build stage
-FROM node:22-alpine AS builder
+# Use the official Node.js image as the base image
+FROM node:22-alpine
 
-RUN npm install -g pnpm
+RUN npm i -g pnpm
 
+# Set the working directory inside the container
 WORKDIR /usr/src/app
 
-COPY package.json pnpm-lock.yaml ./
-COPY pnpm-workspace.yaml ./
+# Setup environment variables
+ENV PORT=3001
 
-COPY apps/api ./apps/api
+# Copy pnpm root files
+COPY pnpm-lock.yaml pnpm-workspace.yaml ./
 
+# Copy root package.json
+COPY package.json ./
+
+# Copy package.json and package-lock.json to the working directory
+COPY /apps/api/package*.json ./apps/api/
+
+# Install the application dependencies
 RUN pnpm --filter @url-shortener/api install
+
+# Copy the rest of the application files
+COPY /apps/api ./apps/api
+
+# Build the NestJS application
 RUN pnpm --filter @url-shortener/api build
 
-RUN pnpm prune --prod
-
-# Production stage
-FROM node:22-alpine AS production
-WORKDIR /usr/src/app
-
-COPY --from=builder /usr/src/app/apps/api/node_modules ./
-COPY --from=builder /usr/src/app/apps/api/dist ./dist
-
+# Prune dev dependencies
+RUN pnpm --dir=apps/api prune --prod
+# Expose the application port
 EXPOSE 3001
 
-CMD ["node", "dist/index.js"]
+# Command to run the application
+CMD ["node", "apps/api/dist/main"]

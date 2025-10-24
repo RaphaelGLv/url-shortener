@@ -1,53 +1,137 @@
-# Backend (/apps/api)
-
-## TypeScript compiled output
-/apps/api/dist/
-/apps/api/build/
-/apps/api/*.js.map
-/apps/api/*.d.ts
-
-## Editor backup files
-/apps/api/*~
-
-# Frontend (/apps/web)
-## testing
-/coverage
-
-## next.js
-/apps/web/.next/
-/apps/web/out/
-
-## production
-/apps/web/build
-
-## vercel
-/apps/web/.vercel
-
-# dependencies
-**/node_modules
+# ==========================================
+# Dependencies
+# ==========================================
+**/node_modules/
 **/.pnp
 .pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
 
+# ==========================================
+# Build Output
+# ==========================================
+**/dist/
+**/build/
+**/.next/
+**/out/
 
-# misc
-.DS_Store
-*.pem
+# ==========================================
+# TypeScript
+# ==========================================
+*.tsbuildinfo
+*.js.map
+*.d.ts
+next-env.d.ts
 
-# debug
+# ==========================================
+# Environment Variables
+# ==========================================
+**/.env
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+**/.env*.local
+
+# ==========================================
+# Logs & Debug Files
+# ==========================================
+**/logs/
+**/*.log
 **/npm-debug.log*
 **/yarn-debug.log*
 **/yarn-error.log*
-**/.pnpm-debug.log*
+**/pnpm-debug.log*
+**/lerna-debug.log*
+**/pids/
+**/*.pid
+**/*.seed
+**/*.pid.lock
 
-# env files (can opt-in for committing if needed)
-**/.env*
+# ==========================================
+# Testing & Coverage
+# ==========================================
+**/coverage/
+**/.nyc_output/
+**/report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
+# ==========================================
+# IDEs & Editors
+# ==========================================
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# IntelliJ / WebStorm
+.idea/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings/
+.c9/
+*.launch
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+*~
+*.swp
+*.swo
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ==========================================
+# OS Files
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ==========================================
+# Temporary Files
+# ==========================================
+**/.temp/
+**/.tmp/
+**/*.tmp
+
+# ==========================================
+# Deployment Platforms
+# ==========================================
+# Vercel
+**/.vercel
+
+# ==========================================
+# Docker
+# ==========================================
+# Docker volumes (if any)
+**/docker-volumes/
+
+# ==========================================
+# Certificates & Keys
+# ==========================================
+*.pem
+*.key
+*.cert
+*.crt
+
+# ==========================================
+# Package Manager Lock Files (optional)
+# ==========================================
+# Uncomment if you want to ignore lock files
+# **/package-lock.json
+# **/yarn.lock
+# **/pnpm-lock.yaml
