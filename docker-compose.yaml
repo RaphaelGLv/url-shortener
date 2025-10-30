@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
+    env_file:
+      - ./apps/api/.env
     ports:
       - "3001:3001"
     environment:
