@@ -1,0 +1,44 @@
+type: collection.insomnia.rest/5.0
+name: url-shortener
+meta:
+  id: wrk_0689e10519a2425785343e4d98b29126
+  created: 1761829381501
+  modified: 1761829381501
+collection:
+  - url: "{{ _.URL_LOCAL }}/health-check"
+    name: health-check
+    meta:
+      id: req_325ed21c4cb941dea11be586fd7edc6c
+      created: 1761829514942
+      modified: 1761829906447
+      isPrivate: false
+      sortKey: -1761829514942
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.0.2
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_73ed5d58d466ef99d4c72195ac26c40b76b8ea3f
+    created: 1761829381511
+    modified: 1761829381511
+environments:
+  name: Base Environment
+  meta:
+    id: env_73ed5d58d466ef99d4c72195ac26c40b76b8ea3f
+    created: 1761829381505
+    modified: 1761829969559
+    isPrivate: false
+  data:
+    PORT: "3001"
+    API_VERSION: 0.0.1
+    URL_LOCAL: http://localhost:{{ _.PORT }}/api/v{{ _.API_VERSION }}
