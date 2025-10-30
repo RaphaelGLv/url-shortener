@@ -15,7 +15,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       useFactory: async (configService: ConfigService) => {
         const dbUrl = configService.get<string>('DATABASE_URL');
         if (!dbUrl) {
-          throw new Error('FATAK> DATABASE_URL not defined in .env file');
+          throw new Error('FATAL: DATABASE_URL not defined in .env file');
         }
 
         return {
