@@ -5,6 +5,7 @@
   "description": "",
   "scripts": {
     "dev": "pnpm --parallel --filter \"./apps/*\" dev",
+    "docker:dev": "docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build",
     "build": "pnpm --filter \"./apps/*\" build",
     "start": "pnpm --parallel --filter \"./apps/*\" start",
     "lint": "pnpm --parallel --filter \"./apps/*\" lint",

@@ -1,0 +1,19 @@
+# TODO: Docker dev not working with hot-reloading yet, needs fixing
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+      target: deps 
+    
+    command: pnpm --filter @url-shortener/api run start:dev
+
+    # Bind local code to container to enable hot-reloading
+    volumes:
+      - ./apps/api:/usr/src/app/apps/api
+      - /usr/src/app/apps/api/node_modules
+      - /usr/src/app/node_modules
+
+  # web doesn't have a dev setup as the Next.js documentation suggests using
+  # `next dev` directly on the host machine for the best developer experience.
