@@ -1,10 +1,14 @@
 # URL Shortener - monorepo
 
+## Decision making
+- You can read the explanation of my decision making in the [DECISIONS.md document](./DECISIONS.md)
+
 ## Stacks
 - **Monorepo / Package management**: pnpm workspaces
 - **Frontend:** Next.js, React, TypeScript
 - **Backend:** NestJS, TypeScript
 - **Database:** MongoDB
+- **Caching:** Redis
 - **DevOps:** Docker, Docker Compose
 - **Testing:** Jest
 
@@ -30,7 +34,7 @@ docker compose up --build
 ```
 ### 4. That's it! The frontend, backend and database will be running locally!
 - Frontend: http://localhost:3000
-- Backend: http://localhost:3001/api/v{{version}}
+- Backend: http://localhost:3001/api/v0.0.1
 
 ## Testing API endpoints (Insomnia)
 1. Install [Insomnia](https://insomnia.rest/download)
