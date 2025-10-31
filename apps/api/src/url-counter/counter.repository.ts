@@ -9,7 +9,7 @@ export class CounterRepository {
 
     async incrementUrlCounter(): Promise<Counter> {
         return this.counterModel.findOneAndUpdate(
-            { _id: 'url_counter' },
+            { name: 'url_counter' },
             { $inc: { count: 1 } },
             { new: true, upsert: true }
         ).exec();
