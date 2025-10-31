@@ -16,9 +16,6 @@ async function bootstrap() {
 
   app.useGlobalPipes(validationPipe);
 
-  const version = configService.get<string>('VERSION') ?? 'unknown';
-  app.setGlobalPrefix(`api/v${version}`);
-
   await app.listen(configService.get<number>('PORT') ?? 3001);
 }
 bootstrap();
