@@ -34,7 +34,7 @@ docker compose up --build
 ```
 ### 4. That's it! The frontend, backend and database will be running locally!
 - Frontend: http://localhost:3000
-- Backend: http://localhost:3001/api/v0.0.1
+- Backend: http://localhost:3001
 
 ## Testing API endpoints (Insomnia)
 1. Install [Insomnia](https://insomnia.rest/download)
