@@ -7,6 +7,7 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { Reflector } from "@nestjs/core";
 import { JwtService } from "@nestjs/jwt";
+import { IS_OPTIONAL_AUTH_KEY } from "src/decorators/optional-auth.decorator";
 import { IS_PUBLIC_KEY } from "src/decorators/public.decorator";
 
 @Injectable()
@@ -29,10 +30,19 @@ export class AuthGuard implements CanActivate {
 
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
+    const isOptionalAuth = this.reflector.getAllAndOverride<boolean>(IS_OPTIONAL_AUTH_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+
+    if (!token && isOptionalAuth) {
+      return true;
+    }
 
     if (!token) {
       throw new UnauthorizedException("Invalid or missing token");
     }
+
 
     try {
       const payload = await this.jwtService.verifyAsync(token, {
