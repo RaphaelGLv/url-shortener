@@ -5,6 +5,71 @@ meta:
   created: 1761829381501
   modified: 1761829381501
 collection:
+  - name: auth
+    meta:
+      id: fld_769effa754f44ad9985b85df24fbac4a
+      created: 1761843334034
+      modified: 1761843334034
+      sortKey: -1761843334034
+    children:
+      - url: "{{ _.URL_LOCAL }}/auth/login"
+        name: login
+        meta:
+          id: req_a2eeaf5f81c1495bb2ae06a8a23bd86b
+          created: 1761843336210
+          modified: 1761850453752
+          isPrivate: false
+          sortKey: -1761843336210
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "email@email.com",
+            	"password": "Password@123"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.URL_LOCAL }}/auth/register"
+        name: register
+        meta:
+          id: req_9aa85b0a421846e8bbb6fbb37da4f0e2
+          created: 1761843339928
+          modified: 1761849814144
+          isPrivate: false
+          sortKey: -1761843339928
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "email@email.com",
+            	"password": "Password@123"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
   - url: "{{ _.URL_LOCAL }}/health-check"
     name: health-check
     meta:
