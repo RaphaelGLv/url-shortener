@@ -8,6 +8,8 @@ import { UrlModule } from "./url/url.module";
 import { CounterModule } from "./url-counter/counter.module";
 import { AuthGuard } from "./auth/auth.guard";
 import { JwtService } from "@nestjs/jwt";
+import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
+import { APP_GUARD } from "@nestjs/core";
 
 @Module({
   imports: [
@@ -30,11 +32,22 @@ import { JwtService } from "@nestjs/jwt";
       },
       inject: [ConfigService],
     }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        { name: "default", ttl: 60_000, limit: 60 },
+      ],
+      errorMessage: "Too many requests, please try again later.",
+    }),
     AuthModule,
     UrlModule,
     CounterModule,
   ],
   controllers: [AppController],
-  providers: [AppService, JwtService, { provide: 'APP_GUARD', useClass: AuthGuard }],
+  providers: [
+    AppService,
+    JwtService,
+    { provide: APP_GUARD, useClass: AuthGuard },
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
+  ],
 })
 export class AppModule {}
