@@ -1,10 +1,9 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, HydratedDocument, Schema as MongooseSchema } from "mongoose";
-import { User } from "src/auth/schemas/user.schema";
+import { HydratedDocument, Schema as MongooseSchema } from "mongoose";
 import { UrlUtils } from "../url.utils";
 
 @Schema({timestamps: true})
-export class ShortenedUrl extends Document {
+export class ShortenedUrl {
     @Prop({ required: true, unique: true })
     hash: string;
 
@@ -12,7 +11,7 @@ export class ShortenedUrl extends Document {
     originalUrl: string;
 
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', default: null, index: true })
-    userId: User
+    userId: MongooseSchema.Types.ObjectId | null;
 
     @Prop({ type: Boolean, default: false })
     isDeleted: boolean;

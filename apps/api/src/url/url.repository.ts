@@ -14,4 +14,9 @@ export class UrlRepository {
         const createdUrl = new this.urlModel(shortenedUrl);
         return await createdUrl.save();
     }
+
+    async findByHash(hash: string): Promise<ShortenedUrlDocument | null> {
+        const shortenedUrl = await this.urlModel.findOne({ hash }).exec();
+        return shortenedUrl;
+    }
 }

@@ -1,9 +1,10 @@
 import { Body, Controller, Post, Req } from "@nestjs/common";
-import { UrlService } from "./services/url-service/url.service";
-import { ShortenUrlRequestDto } from "./dtos/shorten-url/shorten-url.request.dto";
-import { ShortenUrlResponseDto } from "./dtos/shorten-url/shorten-url.response.dto";
+import { UrlService } from "../../services/url-service/url.service";
+import { ShortenUrlRequestDto } from "../../dtos/shorten-url/shorten-url.request.dto";
+import { ShortenUrlResponseDto } from "../../dtos/shorten-url/shorten-url.response.dto";
 import { ConfigService } from "@nestjs/config";
 import { OptionalAuth } from "src/decorators/optional-auth.decorator";
+import type { AppRequest } from "src/types/app-request.types";
 
 @Controller("url")
 export class UrlController {
@@ -16,9 +17,9 @@ export class UrlController {
   @Post("shorten")
   async shortenUrl(
     @Body() shortenUrlRequestDto: ShortenUrlRequestDto,
-    @Req() request
+    @Req() request: AppRequest
   ): Promise<ShortenUrlResponseDto> {
-    const userId = request.user?.userId || null;
+    const userId = request.user?.userId;
 
     const hash = await this.urlService.shortenUrl(
       shortenUrlRequestDto.url,

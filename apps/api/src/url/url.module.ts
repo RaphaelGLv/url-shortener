@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { UrlController } from "./url.controller";
+import { UrlController } from "./controllers/url/url.controller";
 import { UrlService } from "./services/url-service/url.service";
 import { ConfigModule } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
@@ -11,6 +11,7 @@ import { Counter, CounterSchema } from "src/url-counter/schemas/counter.schema";
 import { HashingService } from "./services/hashing-service/hashing.service";
 import { UrlRepository } from "./url.repository";
 import { CounterRepository } from "src/url-counter/counter.repository";
+import { RedirectController } from './controllers/redirect/redirect.controller.controller';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { CounterRepository } from "src/url-counter/counter.repository";
       { name: Counter.name, schema: CounterSchema },
     ]),
   ],
-  controllers: [UrlController],
+  controllers: [UrlController, RedirectController],
   providers: [UrlService, HashingService, UrlRepository, CounterRepository],
 })
 export class UrlModule {}
