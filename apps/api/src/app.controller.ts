@@ -2,6 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
+import { Public } from './decorators/public.decorator';
 
 @Controller()
 export class AppController {
@@ -10,6 +11,7 @@ export class AppController {
     @InjectConnection() private readonly connection: Connection
   ) {}
 
+  @Public()
   @Get('health-check')
   getHealthCheck() {
     return {
