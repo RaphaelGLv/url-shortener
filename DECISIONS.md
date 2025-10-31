@@ -51,6 +51,7 @@ This document details the reason to my approach on this project
 - Database protection:
     - Captcha when a not logged-in user is creating a URL
     - Rate limit for URL creation
+    - Hashes starting with 100,000,000, as it's harder to count the existing URLs
 - URL data protection:
     - Rate limit for `GET /:hash`
     - The data of a specific URL access will only be given to authenticated users (JWT), so it's not necessary to protect the predictability of the next hash
