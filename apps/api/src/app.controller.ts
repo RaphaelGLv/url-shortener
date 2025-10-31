@@ -3,7 +3,9 @@ import { AppService } from './app.service';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 import { Public } from './decorators/public.decorator';
+import { SkipThrottle } from '@nestjs/throttler';
 
+@SkipThrottle()
 @Controller()
 export class AppController {
   constructor(

@@ -5,6 +5,7 @@ import { ShortenUrlResponseDto } from "../../dtos/shorten-url/shorten-url.respon
 import { ConfigService } from "@nestjs/config";
 import { OptionalAuth } from "src/decorators/optional-auth.decorator";
 import type { AppRequest } from "src/types/app-request.types";
+import { Throttle } from "@nestjs/throttler";
 
 @Controller("url")
 export class UrlController {
@@ -13,6 +14,7 @@ export class UrlController {
     private readonly urlService: UrlService
   ) {}
 
+  @Throttle({ default: { ttl: 60_000, limit: 20, blockDuration: 60_000 } })
   @OptionalAuth()
   @Post("shorten")
   async shortenUrl(
