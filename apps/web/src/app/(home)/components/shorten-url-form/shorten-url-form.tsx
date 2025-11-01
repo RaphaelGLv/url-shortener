@@ -12,6 +12,7 @@ import { ApiError } from "next/dist/server/api-utils";
 import AppLink from "@/components/app-link/app-link";
 import { useShallow } from "zustand/shallow";
 import { useShortenedUrlStore } from "@/lib/store/shortened-url-store";
+import { isStatusCodeError } from "@/lib/api-utils";
 
 export function ShortenUrlForm() {
   const setToast = useToastStore(useShallow((state) => state.setToast));
@@ -37,36 +38,39 @@ export function ShortenUrlForm() {
   };
 
   const validateUrl = (url: string): boolean => {
-    const urlPattern = /^((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(:[0-9]+)?|(?:|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
+    const urlPattern =
+      /^((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(:[0-9]+)?|(?:|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
     return urlPattern.test(url);
   };
 
   const handleSubmit = async () => {
     setIsLoading(true);
 
-    const response = await shortenUrlAction({ url: urlInput })
-      .then((response) => {
-        addUrl(response);
-        return response;
-      })
-      .catch((error) => {
-        const errorTyped = error as ApiError;
+    try {
+      const response = await shortenUrlAction({ url: urlInput });
 
-        setToast({
-          type: "error",
-          message: "Error shortening URL: " + errorTyped.message,
-        });
+      const errorResponse = response as ApiError;
+      if (isStatusCodeError(errorResponse.statusCode)) {
+        throw errorResponse;
+      }
 
-        return null;
-      })
-      .finally(() => {
-        setIsLoading(false);
+      const typedResponse = response as ShortenedUrlEntity;
+
+      addUrl(typedResponse);
+
+      setCreatedShortUrl(typedResponse);
+      setIsModalOpen(true);
+
+    } catch (error) {
+      const errorTyped = error as ApiError;
+
+      setToast({
+        type: "error",
+        message: "Error shortening URL: " + errorTyped.message,
       });
-
-    if (!response) return;
-
-    setCreatedShortUrl(response);
-    setIsModalOpen(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleCopyShortUrl = () => {
@@ -113,7 +117,7 @@ export function ShortenUrlForm() {
         onClose={() => setIsModalOpen(false)}
         confirmButtonProps={{
           buttonText: "Copy short URL",
-          onConfirm: handleCopyShortUrl
+          onConfirm: handleCopyShortUrl,
         }}
       >
         <div className={styles.modalContent}>
