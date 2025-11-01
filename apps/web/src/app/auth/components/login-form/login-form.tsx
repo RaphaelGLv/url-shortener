@@ -9,13 +9,17 @@ import { AppRoutes } from "@/constants/app-routes";
 import { ApiError } from "next/dist/server/api-utils";
 import { useRouter } from "next/navigation";
 import { loginAction } from "@/app/actions/auth/auth.action";
+import { isStatusCodeError } from "@/lib/api-utils";
 
 interface LoginFormProps {
   onClickRegisterButton: () => void;
   className?: string;
 }
 
-export function LoginForm({ onClickRegisterButton, className }: LoginFormProps) {
+export function LoginForm({
+  onClickRegisterButton,
+  className,
+}: LoginFormProps) {
   const router = useRouter();
   const { setToast } = useToastStore(
     useShallow((state) => ({ setToast: state.setToast }))
@@ -50,10 +54,14 @@ export function LoginForm({ onClickRegisterButton, className }: LoginFormProps) 
     setIsLoading(true);
 
     try {
-      await loginAction({
+      const response = await loginAction({
         email: emailInput.value,
         password: passwordInput.value,
       });
+      const errorResponse = response as ApiError;
+      if (isStatusCodeError(errorResponse.statusCode)) {
+        throw errorResponse;
+      }
 
       setToast({ type: "success", message: "Login successful!" });
 
