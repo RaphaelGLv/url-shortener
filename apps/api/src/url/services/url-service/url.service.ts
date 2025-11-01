@@ -4,6 +4,7 @@ import { CounterRepository } from "src/url-counter/counter.repository";
 import { HashingService } from "../hashing-service/hashing.service";
 import { ShortenedUrlEntity } from "src/url/entities/shortened-url.entity";
 import { Response } from "express";
+import { UrlUtils } from "src/url/url.utils";
 
 @Injectable()
 export class UrlService {
@@ -18,10 +19,13 @@ export class UrlService {
 
     const hash = this.hashingService.encode(counter.count);
 
+    const expiresAt = userId ? null : UrlUtils.getExpirationDate();
+
     const shortenedUrl = await this.urlRepository.createShortenedUrl(new ShortenedUrlEntity({
       originalUrl,
       hash,
       userId,
+      expiresAt,
     }));
 
     const response = ShortenedUrlEntity.fromModel(shortenedUrl);

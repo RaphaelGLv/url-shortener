@@ -34,6 +34,7 @@ export class UrlController {
       hash: shortenedUrlEntity.hash,
       originalUrl: shortenedUrlEntity.originalUrl,
       shortenedUrl: `${apiBaseUrl}/${shortenedUrlEntity.hash}`,
+      expiresAt: shortenedUrlEntity?.expiresAt?.toISOString() ?? null,
       createdAt: shortenedUrlEntity?.createdAt?.toISOString(),
      };
   }

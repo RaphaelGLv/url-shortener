@@ -1,7 +1,7 @@
 export class UrlUtils {
-    static getDefaultExpirationInSeconds(): number {
-        const SEVEN_DAYS_IN_SECONDS = 7 * 24 * 60 * 60;
-        return SEVEN_DAYS_IN_SECONDS;
+    static getExpirationDate(): Date {
+        const SEVEN_DAYS_IN_MS = 7 * 24 * 60 * 60 * 1000;
+        return new Date(Date.now() + SEVEN_DAYS_IN_MS);
     }
 
     static normalizeUrl(url: string): string {

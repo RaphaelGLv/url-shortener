@@ -4,12 +4,14 @@ export class ShortenedUrlEntity {
     userId?: string;
     hash: string;
     originalUrl: string;
+    expiresAt: Date | null;
     createdAt?: Date;
     
     constructor(props: {
         userId?: string,
         hash: string,
         originalUrl: string,
+        expiresAt: Date | null,
         createdAt?: Date,
     }) {
         Object.assign(this, props);
@@ -18,15 +20,16 @@ export class ShortenedUrlEntity {
     static fromModel(model: ShortenedUrlDocument): ShortenedUrlEntity {
         return new ShortenedUrlEntity(
             {
-                userId: model.userId?.get?.toString(),
+                userId: model.userId?.toString(),
                 hash: model.hash,
                 originalUrl: model.originalUrl,
+                expiresAt: model.expiresAt,
                 createdAt: model.createdAt,
             }
         )
     }
     
     public isPermanent(): boolean {
-        return this.userId !== undefined;
+        return this.expiresAt === null;
     }
 }
