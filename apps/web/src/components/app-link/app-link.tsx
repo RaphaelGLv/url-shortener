@@ -5,7 +5,7 @@ interface AppLinkProps {
     href: string;
     children: React.ReactNode;
     className?: string;
-    target?: string;
+    target?: "_blank" | "_self" | "_parent" | "_top";
 }
 
 const AppLink: React.FC<AppLinkProps> = ({ href, children, className, target="_blank" }) => {
