@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument, Schema as MongooseSchema } from "mongoose";
-import { UrlUtils } from "../url.utils";
 
 @Schema({ timestamps: true })
 export class ShortenedUrl {
@@ -21,7 +20,7 @@ export class ShortenedUrl {
   @Prop({ type: Boolean, default: false })
   isDeleted: boolean;
 
-  @Prop({ type: Date, default: null, index: true })
+  @Prop({ type: Date, default: null, expires: 0 })
   expiresAt: Date | null;
 
   createdAt: Date;
@@ -29,12 +28,5 @@ export class ShortenedUrl {
 
 export const ShortenedUrlSchema = SchemaFactory.createForClass(ShortenedUrl);
 
-ShortenedUrlSchema.index(
-  { createdAt: 1 },
-  {
-    expireAfterSeconds: 0,
-    partialFilterExpression: { userId: null },
-  }
-);
-
 export type ShortenedUrlDocument = HydratedDocument<ShortenedUrl>;
+
