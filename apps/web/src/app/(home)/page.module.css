@@ -11,11 +11,27 @@
     width: 100%;
     justify-items: center;
     
-    height: 65dvh;
+    height: 60vh;
 
     & > h2 {
         text-align: center;
         margin: auto;
         font-size: var(--text-2xl);
+    }
+}
+
+.historySection {
+    display: grid;
+    gap: 1rem;
+
+    width: 100%;
+    padding-bottom: 4rem;
+    
+    & > h3 {
+        text-align: center;
+
+        width: fit-content;
+        padding: 0 0.5rem;
+        font-size: var(--text-xl);
     }
 }

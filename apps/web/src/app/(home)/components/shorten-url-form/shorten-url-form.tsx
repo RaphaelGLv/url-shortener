@@ -10,9 +10,12 @@ import { ShortenedUrlEntity } from "@/app/actions/entities/shortened-url.entity"
 import { useToastStore } from "@/components/toast/store/toast-store";
 import { ApiError } from "next/dist/server/api-utils";
 import AppLink from "@/components/app-link/app-link";
+import { useShallow } from "zustand/shallow";
+import { useShortenedUrlStore } from "@/lib/store/shortened-url-store";
 
 export function ShortenUrlForm() {
-  const setToast = useToastStore((state) => state.setToast);
+  const setToast = useToastStore(useShallow((state) => state.setToast));
+  const addUrl = useShortenedUrlStore(useShallow((state) => state.addUrl));
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [urlInput, setUrlInput] = React.useState("");
@@ -42,6 +45,7 @@ export function ShortenUrlForm() {
 
     const response = await shortenUrlAction({ url: urlInput })
       .then((response) => {
+        addUrl(response);
         return response;
       })
       .catch((error) => {
