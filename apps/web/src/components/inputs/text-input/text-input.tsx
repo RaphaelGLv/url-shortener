@@ -1,6 +1,6 @@
 import styles from "./text-input.module.css";
 
-interface TextInputProps {
+export interface TextInputProps {
   id: string;
   label: string;
   value: string;
@@ -9,9 +9,10 @@ interface TextInputProps {
   showLabel?: boolean;
   placeholder?: string;
   type?: string;
+  required?: boolean;
   props?: Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
-    "value" | "onChange" | "placeholder" | "type" | "id"
+    "value" | "onChange" | "placeholder" | "type" | "id" | "required"
   >;
 }
 
@@ -21,8 +22,10 @@ export function TextInput({
   value,
   onChange,
   errorMessage = "",
+  placeholder = "",
   type = "text",
   showLabel = true,
+  required = false,
   props,
 }: TextInputProps) {
   const hasError = errorMessage.length > 0;
@@ -38,7 +41,9 @@ export function TextInput({
           value={value}
           aria-label={!showLabel ? label : ""}
           onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
           autoComplete="off"
+          required={required}
           {...props}
         />
       </label>

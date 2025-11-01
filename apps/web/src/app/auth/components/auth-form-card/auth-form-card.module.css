@@ -1,0 +1,44 @@
+.form {
+    display: grid;
+    gap: 1rem;
+
+    padding: 2rem;
+    padding-top: 1rem;
+
+    border-radius: 24px;
+    border: 1px solid var(--grey);
+
+    background-color: black;
+
+    & > fieldset {
+        border: none;
+    }
+}
+
+.title {
+    margin: 0;
+    margin-bottom: 1rem;
+
+    font-size: var(--text-2xl);
+    text-align: center;
+}
+
+.inputsSection {
+    display: grid;
+    gap: 2rem;
+
+    & > * span {
+        background-color: black;
+    }
+}
+
+.buttonsSection {
+    display: flex;
+
+    gap: 0.75rem;
+    margin-top: 1rem;
+
+    & > button {
+        flex: 1;
+    }
+}

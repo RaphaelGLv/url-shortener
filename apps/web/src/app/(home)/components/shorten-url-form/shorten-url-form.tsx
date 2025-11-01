@@ -94,9 +94,7 @@ export function ShortenUrlForm() {
           value={urlInput}
           onChange={handleOnInputChange}
           errorMessage={urlInputError}
-          props={{
-            required: true,
-          }}
+          required={true}
         />
 
         <TextButton
