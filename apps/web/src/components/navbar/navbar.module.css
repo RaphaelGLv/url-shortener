@@ -1,0 +1,15 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    
+    width: 100%;
+
+    padding: calc(1vw + 0.5rem) calc(1vw + 1rem);
+    border-bottom: 1px solid var(--grey);
+
+    backdrop-filter: blur(2px);
+}
+
+.textLogo {
+    font-size: var(--text-2xl);
+}
