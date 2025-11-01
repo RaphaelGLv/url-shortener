@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Poppins } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar/navbar";
+import { Toast } from "@/components/toast/toast";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -32,6 +33,7 @@ export default function RootLayout({
         <div style={{ padding: '0 calc(2vw + 0.75rem)' }}>
           {children}
         </div>
+        <Toast />
       </body>
     </html>
   );

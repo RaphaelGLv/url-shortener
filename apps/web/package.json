@@ -9,10 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "focus-trap-react": "^11.0.4",
     "next": "16.0.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "sharp": "^0.34.4"
+    "sharp": "^0.34.4",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@types/node": "^20",
