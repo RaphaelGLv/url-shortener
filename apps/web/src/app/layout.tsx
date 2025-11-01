@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${montserrat.variable} ${poppins.variable}`}>
         <Navbar />
-        <div style={{ padding: '0 calc(2vw + 0.75rem)' }}>
+        <div style={{ padding: '0 calc(12vw + 1rem)' }}>
           {children}
         </div>
         <Toast />
