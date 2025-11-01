@@ -13,7 +13,7 @@ export class UrlService {
     private readonly counterRepository: CounterRepository
   ) {}
 
-  async shortenUrl(originalUrl: string, userId?: string): Promise<string> {
+  async shortenUrl(originalUrl: string, userId?: string): Promise<ShortenedUrlEntity> {
     const counter = await this.counterRepository.incrementUrlCounter();
 
     const hash = this.hashingService.encode(counter.count);
@@ -21,10 +21,12 @@ export class UrlService {
     const shortenedUrl = await this.urlRepository.createShortenedUrl(new ShortenedUrlEntity({
       originalUrl,
       hash,
-      userId
+      userId,
     }));
 
-    return shortenedUrl.hash;
+    const response = ShortenedUrlEntity.fromModel(shortenedUrl);
+
+    return response;
   }
 
   async redirectToOriginalUrl(hash: string, response: Response): Promise<void> {

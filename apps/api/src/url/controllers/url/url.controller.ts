@@ -23,14 +23,18 @@ export class UrlController {
   ): Promise<ShortenUrlResponseDto> {
     const userId = request.user?.userId;
 
-    const hash = await this.urlService.shortenUrl(
+    const shortenedUrlEntity = await this.urlService.shortenUrl(
       shortenUrlRequestDto.url,
       userId
     );
 
     const apiBaseUrl = this.configService.get<string>("API_BASE_URL");
-    const shortenedUrl = `${apiBaseUrl}/${hash}`;
 
-    return { shortenedUrl };
+    return { 
+      hash: shortenedUrlEntity.hash,
+      originalUrl: shortenedUrlEntity.originalUrl,
+      shortenedUrl: `${apiBaseUrl}/${shortenedUrlEntity.hash}`,
+      createdAt: shortenedUrlEntity?.createdAt?.toISOString(),
+     };
   }
 }

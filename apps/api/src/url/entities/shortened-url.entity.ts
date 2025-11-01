@@ -4,11 +4,13 @@ export class ShortenedUrlEntity {
     userId?: string;
     hash: string;
     originalUrl: string;
+    createdAt?: Date;
     
     constructor(props: {
         userId?: string,
         hash: string,
         originalUrl: string,
+        createdAt?: Date,
     }) {
         Object.assign(this, props);
     };
@@ -19,6 +21,7 @@ export class ShortenedUrlEntity {
                 userId: model.userId?.get?.toString(),
                 hash: model.hash,
                 originalUrl: model.originalUrl,
+                createdAt: model.createdAt,
             }
         )
     }

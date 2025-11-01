@@ -15,6 +15,8 @@ export class ShortenedUrl {
 
     @Prop({ type: Boolean, default: false })
     isDeleted: boolean;
+
+    createdAt: Date;
 }
 
 export const ShortenedUrlSchema = SchemaFactory.createForClass(ShortenedUrl);
