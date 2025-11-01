@@ -1,6 +1,8 @@
 .navbar {
     position: sticky;
     top: 0;
+    left: 0;
+    right: 0;
 
     display: flex;
     justify-content: space-between;
@@ -17,4 +19,5 @@
 
 .textLogo {
     font-size: var(--text-2xl);
+    pointer-events: none;
 }

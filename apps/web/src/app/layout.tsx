@@ -1,19 +1,18 @@
 import type { Metadata } from "next";
 import { Montserrat, Poppins } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/navbar/navbar";
 import { Toast } from "@/components/toast/toast";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: "700"
+  weight: "700",
 });
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: "100"
+  weight: "100",
 });
 
 export const metadata: Metadata = {
@@ -29,10 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${montserrat.variable} ${poppins.variable}`}>
-        <Navbar />
-        <div style={{ padding: '0 calc(12vw + 1rem)' }}>
-          {children}
-        </div>
+        {children}
         <Toast />
       </body>
     </html>
