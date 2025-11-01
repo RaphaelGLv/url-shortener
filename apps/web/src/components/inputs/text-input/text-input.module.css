@@ -1,0 +1,45 @@
+.wrapper {
+  position: relative;
+
+  display: grid;
+
+}
+
+.label {
+  position: absolute;
+  top: -0.5rem;
+  left: 0.75rem;
+
+  padding: 0 0.25rem;
+
+  background-color: var(--background);
+
+  font-size: var(--text-md);
+}
+
+.input {
+  padding: 1rem;
+  border: 1px solid var(--grey);
+  border-radius: 0.5rem;
+  font-size: var(--text-base);
+  background-color: transparent;
+
+transition: border-color 0.2s ease-in-out;
+  &:focus {
+    outline: none;
+    border-color: var(--brand);
+  }
+}
+
+.errorMessage {
+  position: absolute;
+
+  margin-top: 0.25rem;
+  margin-left: 0.5rem;
+  color: var(--error-300);
+  font-size: var(--text-sm);
+}
+
+.hasError {
+    border-color: var(--error-300);
+}

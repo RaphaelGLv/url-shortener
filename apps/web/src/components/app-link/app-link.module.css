@@ -1,0 +1,27 @@
+.appLink {
+    position: relative;
+    
+    color: var(--brand);
+    text-decoration: none;
+    
+    outline: none;
+    
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        display: inline-block;
+        width: 0;
+        height: 2px;
+        background-color: var(--brand);
+        transition: width 0.3s ease-in-out;
+    }
+
+    &:hover::before,
+    &:focus::before,
+    &:focus-visible::before {
+        width: 100%;
+    }
+}

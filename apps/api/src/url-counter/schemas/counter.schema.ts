@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, HydratedDocument } from "mongoose";
+import { HydratedDocument } from "mongoose";
 
 // It's necessary to have a separate counter collection because
 // it allows us to generate unique sequential IDs for our short URLs
@@ -8,7 +8,7 @@ import { Document, HydratedDocument } from "mongoose";
 @Schema()
 export class Counter {
     @Prop({ required: true, unique: true })
-    _id: string;
+    name: string;
 
     @Prop({ required: true, default: 100000000 })
     count: number;
