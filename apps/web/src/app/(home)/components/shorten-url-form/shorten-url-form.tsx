@@ -37,7 +37,8 @@ export function ShortenUrlForm() {
   };
 
   const validateUrl = (url: string): boolean => {
-    return /^[a-zA-Z0-9]*\.[a-zA-Z]{2,}$/.test(url);
+    const urlPattern = /^((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(:[0-9]+)?|(?:|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
+    return urlPattern.test(url);
   };
 
   const handleSubmit = async () => {
