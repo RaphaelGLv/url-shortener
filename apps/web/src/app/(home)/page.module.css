@@ -6,9 +6,16 @@
 }
 
 .shortenUrlFormSection {
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
     width: 100%;
     justify-items: center;
-    align-content: center;
     
     height: 65dvh;
+
+    & > h2 {
+        text-align: center;
+        margin: auto;
+        font-size: var(--text-2xl);
+    }
 }

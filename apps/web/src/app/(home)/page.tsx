@@ -5,6 +5,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <section className={styles.shortenUrlFormSection}>
+        <h2>Shorten Your URL</h2>
         <ShortenUrlForm />
       </section>
     </main>

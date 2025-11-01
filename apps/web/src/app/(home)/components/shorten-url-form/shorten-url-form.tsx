@@ -7,7 +7,6 @@ import { TextButton } from "@/components/buttons/text-button/text-button";
 import React from "react";
 import { Modal } from "@/components/modal/modal";
 import { ShortenedUrlEntity } from "@/app/actions/entities/shortened-url.entity";
-import Link from "next/link";
 import { useToastStore } from "@/components/toast/store/toast-store";
 import { ApiError } from "next/dist/server/api-utils";
 import AppLink from "@/components/app-link/app-link";
@@ -85,7 +84,7 @@ export function ShortenUrlForm() {
         className={styles.formWrapper}
       >
         <TextInput
-          label="Shorten a URL"
+          label="Type a URL"
           id="shorten-url-text-input"
           value={urlInput}
           onChange={handleOnInputChange}
