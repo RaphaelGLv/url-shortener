@@ -9,15 +9,15 @@ collection:
     meta:
       id: fld_769effa754f44ad9985b85df24fbac4a
       created: 1761843334034
-      modified: 1761843334034
+      modified: 1762041403595
       sortKey: -1761843334034
     children:
-      - url: "{{ _.URL_LOCAL }}/auth/login"
+      - url: "{{ _.BASE_URL }}/auth/login"
         name: login
         meta:
           id: req_a2eeaf5f81c1495bb2ae06a8a23bd86b
           created: 1761843336210
-          modified: 1761850453752
+          modified: 1762042180656
           isPrivate: false
           sortKey: -1761843336210
         method: POST
@@ -33,6 +33,13 @@ collection:
             value: application/json
           - name: User-Agent
             value: insomnia/11.0.2
+        scripts:
+          afterResponse: |-
+            const responseBody = JSON.parse(insomnia.response.body);
+
+            if (responseBody && responseBody.token) {
+            	insomnia.baseEnvironment.set("BEARER_TOKEN", responseBody.token);
+            }
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -41,12 +48,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ _.URL_LOCAL }}/auth/register"
+      - url: "{{ _.BASE_URL }}/auth/register"
         name: register
         meta:
           id: req_9aa85b0a421846e8bbb6fbb37da4f0e2
           created: 1761843339928
-          modified: 1761849814144
+          modified: 1761980961806
           isPrivate: false
           sortKey: -1761843339928
         method: POST
@@ -62,6 +69,13 @@ collection:
             value: application/json
           - name: User-Agent
             value: insomnia/11.0.2
+        scripts:
+          afterResponse: |-
+            const responseBody = JSON.parse(insomnia.response.body);
+
+            if (responseBody && responseBody.token) {
+            	insomnia.baseEnvironment.set("BEARER_TOKEN", responseBody.token);
+            }
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -70,12 +84,81 @@ collection:
             send: true
             store: true
           rebuildPath: true
-  - url: "{{ _.URL_LOCAL }}/health-check"
+  - name: url
+    meta:
+      id: fld_771697f8769b4066896d18b7e54d75e8
+      created: 1761868998307
+      modified: 1762037384378
+      sortKey: -1761868998307
+    children:
+      - url: "{{ _.BASE_URL }}/url/shorten"
+        name: shorten
+        meta:
+          id: req_4bd0e3d81f604420b715b51dd43b13d5
+          created: 1761869000836
+          modified: 1762037382474
+          isPrivate: false
+          sortKey: -1761869000836
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"url": "https://teste.com/path?query=123"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_ffcc327bad434b8582c9dad846becbda
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_6137b7a638a44c628fcadb3e7859a46f
+          - id: pair_be0284dc27ad46c8800f1410ca6c123b
+            name: Authorization
+            value: Bearer {{ _.BEARER_TOKEN }}
+            disabled: true
+        scripts:
+          afterResponse: >-
+            const responseBody = JSON.parse(insomnia.response.body);
+
+
+            if (responseBody && responseBody.shortenedUrl) {
+            	insomnia.baseEnvironment.set("LAST_GENERATED_URL", responseBody.shortenedUrl)
+            }
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.LAST_GENERATED_URL }}"
+        name: :hash
+        meta:
+          id: req_dd6205b132e84f37aa2e135e857fc984
+          created: 1761912236369
+          modified: 1761980956650
+          isPrivate: false
+          sortKey: -1761912236369
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - url: "{{ _.BASE_URL }}/health-check"
     name: health-check
     meta:
       id: req_325ed21c4cb941dea11be586fd7edc6c
       created: 1761829514942
-      modified: 1761829906447
+      modified: 1761980971588
       isPrivate: false
       sortKey: -1761829514942
     method: GET
@@ -95,15 +178,18 @@ cookieJar:
   meta:
     id: jar_73ed5d58d466ef99d4c72195ac26c40b76b8ea3f
     created: 1761829381511
-    modified: 1761829381511
+    modified: 1762041403591
 environments:
   name: Base Environment
   meta:
     id: env_73ed5d58d466ef99d4c72195ac26c40b76b8ea3f
     created: 1761829381505
-    modified: 1761829969559
+    modified: 1762041403593
     isPrivate: false
   data:
     PORT: "3001"
-    API_VERSION: 0.0.1
-    URL_LOCAL: http://localhost:{{ _.PORT }}/api/v{{ _.API_VERSION }}
+    URL_LOCAL: http://localhost:{{ _.PORT }}
+    URL_RENDER: https://url-shortener-api-kbgj.onrender.com
+    BASE_URL: "{{ _.URL_LOCAL }}"
+    BEARER_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OTA2NjIzM2NjMzE1ZmNkODhmNDdjYmUiLCJlbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsImlhdCI6MTc2MjA0MTQwNSwiZXhwIjoxNzYyMDQ1MDA1fQ.DYOPNOiHBqcl3RmGfiCL-AV4kfvl2Bfcoc_ZTzTCitI
+    LAST_GENERATED_URL: https://url-shortener-api-kbgj.onrender.com/QbBLl
