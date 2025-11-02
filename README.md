@@ -12,6 +12,12 @@
 - **DevOps:** Docker, Docker Compose
 - **Testing:** Jest
 
+## Deployment links
+- [Frontend Web | Vercel](https://url-shortener-web-red.vercel.app/)
+- [Backend | Render](https://url-shortener-api-kbgj.onrender.com)
+> [!NOTE]
+> As Render is running on the free tier, you may experience a considerable delay on your first request.
+
 ## How to run it locally
 ### Pre-requisites
 * [Node.js](https://nodejs.org/en/)
