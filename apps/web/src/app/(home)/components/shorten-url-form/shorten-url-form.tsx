@@ -12,7 +12,6 @@ import { ApiError } from "next/dist/server/api-utils";
 import AppLink from "@/components/app-link/app-link";
 import { useShallow } from "zustand/shallow";
 import { useShortenedUrlStore } from "@/lib/store/shortened-url-store";
-import { isStatusCodeError } from "@/lib/api-utils";
 
 export function ShortenUrlForm() {
   const setToast = useToastStore(useShallow((state) => state.setToast));
@@ -49,16 +48,15 @@ export function ShortenUrlForm() {
     try {
       const response = await shortenUrlAction({ url: urlInput });
 
-      const errorResponse = response as ApiError;
-      if (isStatusCodeError(errorResponse.statusCode)) {
-        throw errorResponse;
+      if (response.success === false) {
+        throw response.data;
       }
 
-      const typedResponse = response as ShortenedUrlEntity;
+      const data = response.data as ShortenedUrlEntity;
 
-      addUrl(typedResponse);
+      addUrl(data);
 
-      setCreatedShortUrl(typedResponse);
+      setCreatedShortUrl(data);
       setIsModalOpen(true);
 
     } catch (error) {
