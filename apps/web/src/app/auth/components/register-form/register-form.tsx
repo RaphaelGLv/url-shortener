@@ -10,7 +10,6 @@ import { ApiError } from "next/dist/server/api-utils";
 import { useRouter } from "next/navigation";
 import { InputValidator } from "@/lib/input-validator";
 import { registerAction } from "@/app/actions/auth/auth.action";
-import { isStatusCodeError } from "@/lib/api-utils";
 
 interface RegisterFormProps {
   onClickLoginButton: () => void;
@@ -77,9 +76,8 @@ export function RegisterForm({ onClickLoginButton, className }: RegisterFormProp
         password: passwordInput.value,
       });
 
-      const errorResponse = response as ApiError;
-      if (isStatusCodeError(errorResponse.statusCode)) {
-        throw errorResponse;
+      if (response.success === false) {
+        throw response.data;
       }
 
       setToast({ type: "success", message: "Registration successful!" });

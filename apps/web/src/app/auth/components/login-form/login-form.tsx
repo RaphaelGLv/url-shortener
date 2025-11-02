@@ -9,7 +9,6 @@ import { AppRoutes } from "@/constants/app-routes";
 import { ApiError } from "next/dist/server/api-utils";
 import { useRouter } from "next/navigation";
 import { loginAction } from "@/app/actions/auth/auth.action";
-import { isStatusCodeError } from "@/lib/api-utils";
 
 interface LoginFormProps {
   onClickRegisterButton: () => void;
@@ -58,9 +57,8 @@ export function LoginForm({
         email: emailInput.value,
         password: passwordInput.value,
       });
-      const errorResponse = response as ApiError;
-      if (isStatusCodeError(errorResponse.statusCode)) {
-        throw errorResponse;
+      if (response.success === false) {
+        throw response.data;
       }
 
       setToast({ type: "success", message: "Login successful!" });
